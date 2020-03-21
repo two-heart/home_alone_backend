@@ -9,7 +9,7 @@ const prefix = path => {
     case 'development':
     case 'production':
     default:
-      prefix = 'dist/src';
+      prefix = 'dist';
       break;
   }
 
