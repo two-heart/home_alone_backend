@@ -2,8 +2,8 @@ variables:
   IMAGE_TAG_BACKEND: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
 
 stages:
-  - deploy
   - build
+  - deploy
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -21,10 +21,12 @@ build:
   stage: deploy
   when: on_success
   allow_failure: false
+  dependencies:
+    - build
   script:
     - ls -al
-    - ls -al .gitlab-ci
-    - sh ./.gitlab-ci/deploy_staging.sh
+    - ls -al .gitlab/
+    - sh ./.gitlab-ci/deploy-staging.sh
   tags:
     - staging
 
@@ -32,9 +34,10 @@ build:
   stage: deploy
   allow_failure: true
   when: manual
+  dependencies:
+    - build
   script:
-    - chmod +x ./.gitlab-ci/deploy_staging_stop.sh
-    - sh ./.gitlab-ci/deploy_staging_stop.sh
+    - sh ./.gitlab-ci/deploy-staging-stop.sh
   tags:
     - staging
 
