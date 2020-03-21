@@ -24,7 +24,8 @@ build:
   dependencies:
     - build
   script:
-    - sh .gitlab-ci/deploy_staging.sh
+    - chmod +x ./.gitlab-ci/deploy_staging.sh
+    - sh ./.gitlab-ci/deploy_staging.sh
   tags:
     - staging
 
@@ -35,7 +36,8 @@ build:
   dependencies:
     - build
   script:
-    - sh .gitlab-ci/deploy_staging_stop.sh
+    - chmod +x ./.gitlab-ci/deploy_staging_stop.sh
+    - sh ./.gitlab-ci/deploy_staging_stop.sh
   tags:
     - staging
 
