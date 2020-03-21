@@ -15,7 +15,7 @@ build:
     - docker build -t $IMAGE_TAG_BACKEND -f .docker/Dockerfile .
     - docker push $IMAGE_TAG_BACKEND
   tags:
-    - docker-schulz
+    - docker
 
 .deploy:staging: &deployTemplate
   stage: deploy
@@ -38,32 +38,6 @@ build:
     - sh ./.gitlab-ci/deploy-staging-stop.sh
   tags:
     - staging
-
-deploy:master:
-  <<: *deployTemplate
-  variables:
-    STAGING_DOMAIN: home-alone.schulz.codes
-    ENTRYPOINT: 'http,https'
-  when: on_success
-  environment:
-    name: master
-    url: https://$STAGING_DOMAIN
-    on_stop: deploy:master:stop
-  only:
-    - tags
-    - /^master$/
-
-deploy:master:stop:
-  <<: *deployStopTemplate
-  variables:
-    STAGING_DOMAIN: home-alone.schulz.codes
-    ENTRYPOINT: 'http,https'
-  environment:
-    name: master
-    action: stop
-  only:
-    - tags
-    - /^master$/
 
 deploy:develop:
   <<: *deployTemplate
