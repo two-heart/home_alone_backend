@@ -1,7 +1,6 @@
 entity: User
 items:
   devUser:
-    firstName: 'dev'
-    lastName: 'loper'
+    displayedName: 'Developer'
     email: 'dev@home-alone.de'
     password: '$2b$10$dKXSf0/.SIl9WHLrLlJu4ubCDxICcPVNIGJPhyI36c8KQ4ydNxbx.'

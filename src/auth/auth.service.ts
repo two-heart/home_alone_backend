@@ -5,7 +5,7 @@ import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { IUser, User } from '../user/user.entity';
-import { RegisterUserDto } from '../app.controller';
+import { RegisterUserDto } from './auth.controller';
 
 @Injectable()
 export class AuthService {
@@ -36,8 +36,7 @@ export class AuthService {
   async register(userInput: RegisterUserDto) {
     const user = new User();
     user.email = userInput.email;
-    user.firstName = userInput.firstName;
-    user.lastName = userInput.lastName;
+    user.displayedName = userInput.displayedName;
     user.password = bcrypt.hashSync(userInput.plainPassword, 10);
     return this.userRepository.save(user);
   }

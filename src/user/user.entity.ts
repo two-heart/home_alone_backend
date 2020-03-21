@@ -14,10 +14,7 @@ export class User implements IUser {
   email: string;
 
   @Column({ type: 'varchar', length: 300 })
-  firstName: string;
-
-  @Column({ type: 'varchar', length: 300 })
-  lastName: string;
+  displayedName: string;
 
   @Column({ type: 'varchar', length: 300 })
   password: string;
