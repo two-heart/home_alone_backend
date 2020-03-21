@@ -2,4 +2,4 @@ entity: User
 items:
   devUser:
     email: 'dev@home-alone.de'
-    password: '$2y$10$5o9zrrG2uTfG6FsO1wa07uhfFCY0UAuR9AsXRsL5HDdrWemoUpcFa'
+    password: '$2b$10$dKXSf0/.SIl9WHLrLlJu4ubCDxICcPVNIGJPhyI36c8KQ4ydNxbx.'

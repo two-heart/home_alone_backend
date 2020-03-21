@@ -13,6 +13,7 @@ export class AuthService {
 
   async validateUser(email: string, pass: string) {
     const user = await this.userService.findByEmail(email);
+    console.log(user);
     if (user === undefined) return null;
     try {
       const { password, ...result } = user;
