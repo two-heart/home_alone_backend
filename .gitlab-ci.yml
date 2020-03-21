@@ -24,8 +24,6 @@ build:
   dependencies:
     - build
   script:
-    - ls -al
-    - ls -al .gitlab/
     - sh ./.gitlab-ci/deploy-staging.sh
   tags:
     - staging
