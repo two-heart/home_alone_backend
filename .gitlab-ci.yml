@@ -26,7 +26,7 @@ build:
   script:
     - sh .gitlab-ci/deploy_staging.sh
   tags:
-    - docker-staging
+    - staging
 
 .deploy:staging:stop: &deployStopTemplate
   stage: deploy
@@ -37,7 +37,7 @@ build:
   script:
     - sh .gitlab-ci/deploy_staging_stop.sh
   tags:
-    - docker-staging
+    - staging
 
 deploy:master:
   <<: *deployTemplate
