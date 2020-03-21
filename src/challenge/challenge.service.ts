@@ -13,4 +13,8 @@ export class ChallengeService {
   findAll(): Promise<Challenge[]> {
     return this.challengeRepository.find();
   }
+
+  findById(id: string): Promise<Challenge | undefined> {
+    return this.challengeRepository.findOne(id);
+  }
 }

@@ -1,0 +1,4 @@
+entity: Category
+items:
+  category{0..3}:
+    name: '{{company.catchPhraseAdjective}}'

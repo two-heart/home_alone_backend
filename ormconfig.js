@@ -15,9 +15,7 @@ const prefix = path => {
 
   return `${prefix}/${path}`;
 };
-console.log('config');
 
-console.log(prefix('entity/**/*.*'));
 module.exports = {
   name: 'default',
   type: 'postgres',
