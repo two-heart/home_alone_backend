@@ -30,7 +30,7 @@ export class User implements IUser {
   password: string;
 
   @ManyToMany(type => Category)
-  @JoinTable()
+  @JoinTable({ name: 'user_subscribed_category' })
   subscribedCategories: Category[];
 
   @OneToMany(
