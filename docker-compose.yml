@@ -13,7 +13,7 @@ services:
   backend:
     image: 'node:12'
     working_dir: '/var/app/backend'
-    command: 'npm run start:dev'
+    command: 'npm run start'
     volumes:
       - './:/var/app/backend'
     ports:

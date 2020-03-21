@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start:dev": "nodemon --config nodemon.json",
+    "start": "tsc-watch --outDir ./dist --onSuccess 'node --inspect=0.0.0.0:9229 ./dist/src/main.js'",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,7 +17,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm:sync": "typeorm schema:sync",
+    "typeorm:drop": "typeorm schema:drop"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -29,6 +31,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
+    "tsc-watch": "^4.2.3",
     "typeorm": "^0.2.24"
   },
   "devDependencies": {
