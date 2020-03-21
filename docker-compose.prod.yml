@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  db:
+    image: 'postgres:12'
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+
+    ports:
+      - '5432:5432'
+
+  backend:
+    image: ${IMAGE_TAG_BACKEND}
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.port=80'
+      - 'traefik.frontend.rule=Host:${STAGING_DOMAIN}'
+      - 'traefik.frontend.entryPoints=${ENTRYPOINT}'
