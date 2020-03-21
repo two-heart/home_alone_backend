@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm:sync": "typeorm schema:sync",
-    "typeorm:drop": "typeorm schema:drop"
+    "typeorm:drop": "typeorm schema:drop",
+    "fixtures": "ts-node ./node_modules/typeorm-fixtures-cli/dist/cli.js ./src/**/*.fixture.yml --config ormconfig.js --sync --debug"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -27,18 +28,19 @@
     "@nestjs/jwt": "^7.0.0",
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@nestjs/typeorm": "^7.0.0",
     "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "@nestjs/typeorm": "^7.0.0",
-    "dotenv": "^8.2.0",
     "pg": "^7.18.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4",
     "tsc-watch": "^4.2.3",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "typeorm-fixtures-cli": "^1.5.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",

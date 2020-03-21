@@ -8,6 +8,6 @@ export class Challenge {
   @Column({ type: 'varchar', length: 300 })
   name: string;
 
-  @Column({ type: 'varchar', length: 300 })
+  @Column({ type: 'text' })
   description: string;
 }

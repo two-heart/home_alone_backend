@@ -1,0 +1,5 @@
+entity: User
+items:
+  devUser:
+    email: 'dev@home-alone.de'
+    password: '$2y$10$5o9zrrG2uTfG6FsO1wa07uhfFCY0UAuR9AsXRsL5HDdrWemoUpcFa'
