@@ -15,7 +15,7 @@ build:
     - docker build -t $IMAGE_TAG_BACKEND -f .docker/Dockerfile .
     - docker push $IMAGE_TAG_BACKEND
   tags:
-    - docker
+    - docker-schulz
 
 .deploy:staging: &deployTemplate
   stage: deploy
