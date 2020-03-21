@@ -1,7 +1,17 @@
 import { Challenge } from './challenge.entity';
 import { ChallengeService } from './challenge.service';
-import { BadRequestException, Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiNotFoundResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { isUUID } from '@nestjs/common/utils/is-uuid';
 
 @Controller('challenge')

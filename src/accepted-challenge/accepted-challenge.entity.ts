@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryColumn, Unique } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryColumn,
+  Unique,
+} from 'typeorm';
 import { User } from '../user/user.entity';
 import { Challenge } from '../challenge/challenge.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
