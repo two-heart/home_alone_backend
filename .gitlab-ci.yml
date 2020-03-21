@@ -12,7 +12,7 @@ build:
   image: tmaier/docker-compose:latest
   stage: build
   script:
-    - docker build -t IMAGE_TAG_BACKEND -f .docker/Dockerfile .
+    - docker build -t $IMAGE_TAG_BACKEND -f .docker/Dockerfile .
     - docker push $IMAGE_TAG_BACKEND
   tags:
     - docker
