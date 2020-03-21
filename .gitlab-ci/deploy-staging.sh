@@ -17,6 +17,15 @@ echo ENTRYPOINT=$ENTRYPOINT >> .env
 echo STAGING_DOMAIN=$STAGING_DOMAIN  >> .env
 echo IMAGE_TAG_BACKEND=$IMAGE_TAG_BACKEND >> .env
 
+echo PORT=3000 >> .env
+echo MODE=DEV >> .env
+echo RUN_MIGRATIONS=true >> .env
+echo DATABASE_HOST=db >> .env
+echo DATABASE_PORT=5432 >> .env
+echo DATABASE_NAME=home_alone >> .env
+echo DATABASE_USER=home_alone >> .env
+echo DATABASE_PASSWORD=$DATABASE_PASSWORD >> .env
+
 echo "Pulling images"
 docker-compose --project-name $STAGING_DOMAIN pull --parallel
 
