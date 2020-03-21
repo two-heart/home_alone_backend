@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Category } from '../category/category.entity';
 import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
+import { Exclude } from 'class-transformer';
 
 export interface IUser {
   id: string;
@@ -26,6 +27,7 @@ export class User implements IUser {
   @Column({ type: 'varchar', length: 300 })
   displayedName: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 300 })
   password: string;
 
