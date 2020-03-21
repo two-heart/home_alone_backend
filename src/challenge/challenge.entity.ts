@@ -1,18 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-export interface IUser {
-  id: string;
-  email: string;
-  password: string;
-}
 
-@Entity({ name: 'user' })
-export class User implements IUser {
+@Entity({ name: 'challenge' })
+export class Challenge {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 300 })
-  email: string;
+  name: string;
 
   @Column({ type: 'varchar', length: 300 })
-  password: string;
+  description: string;
 }
