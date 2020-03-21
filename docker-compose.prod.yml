@@ -12,7 +12,7 @@ services:
     env_file:
       - .env
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.port=3000'
-      - 'traefik.frontend.rule=Host:${STAGING_DOMAIN}'
-      - 'traefik.frontend.entryPoints=${ENTRYPOINT}'
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`${STAGING_DOMAIN}`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
+
