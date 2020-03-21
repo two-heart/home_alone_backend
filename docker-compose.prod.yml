@@ -9,8 +9,10 @@ services:
 
   backend:
     image: ${IMAGE_TAG_BACKEND}
+    env_file:
+      - .env
     labels:
       - 'traefik.enable=true'
-      - 'traefik.port=80'
+      - 'traefik.port=3000'
       - 'traefik.frontend.rule=Host:${STAGING_DOMAIN}'
       - 'traefik.frontend.entryPoints=${ENTRYPOINT}'
