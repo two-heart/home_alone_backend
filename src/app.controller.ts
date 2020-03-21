@@ -1,7 +1,35 @@
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+  Body,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth/auth.service';
+import {
+  ApiProperty,
+  ApiCreatedResponse,
+  ApiResponseProperty,
+} from '@nestjs/swagger';
+
+export class RegisterUserDto {
+  @ApiProperty()
+  firstName: string;
+  @ApiProperty()
+  lastName: string;
+  @ApiProperty()
+  email: string;
+  @ApiProperty()
+  plainPassword: string;
+}
+
+export class RegisterUserResponse {
+  @ApiResponseProperty()
+  accessToken: '';
+}
 
 @Controller()
 export class AppController {
@@ -17,10 +45,14 @@ export class AppController {
     return this.authService.generateToken(req.user);
   }
 
+  @ApiCreatedResponse({
+    description: 'registers a new user',
+    type: RegisterUserResponse,
+  })
   @Post('auth/register')
-  async register(@Request() req) {
-    console.log(req.body);
-    this.authService.register(req.body);
+  async register(@Body() registerUserInput: RegisterUserDto) {
+    const newUser = await this.authService.register(registerUserInput);
+    return this.authService.generateToken(newUser);
   }
 
   @Get()

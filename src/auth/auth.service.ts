@@ -5,6 +5,7 @@ import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { IUser, User } from '../user/user.entity';
+import { RegisterUserDto } from 'src/app.controller';
 
 @Injectable()
 export class AuthService {
@@ -32,13 +33,13 @@ export class AuthService {
     }
   }
 
-  async register(userInput: RegisterUserInput) {
+  async register(userInput: RegisterUserDto) {
     const user = new User();
     user.email = userInput.email;
     user.firstName = userInput.firstName;
     user.lastName = userInput.lastName;
     user.password = bcrypt.hashSync(userInput.plainPassword, 10);
-    this.userRepository.save(user);
+    return this.userRepository.save(user);
   }
 
   async generateToken(user: IUser) {
@@ -47,11 +48,4 @@ export class AuthService {
       accessToken: await this.jwtService.signAsync(payload),
     };
   }
-}
-
-interface RegisterUserInput {
-  firstName: string;
-  lastName: string;
-  plainPassword: string;
-  email: string;
 }
