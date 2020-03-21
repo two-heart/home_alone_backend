@@ -17,4 +17,19 @@ export class ChallengeService {
   findById(id: string): Promise<Challenge | undefined> {
     return this.challengeRepository.findOne(id);
   }
+
+  findChallengesBySubscribedCategoriesOfUser(
+    userId: string,
+  ): Promise<Challenge[]> {
+    return this.challengeRepository
+      .createQueryBuilder('challenge')
+      .innerJoinAndSelect('challenge.category', 'category')
+      .innerJoinAndSelect(
+        'user_subscribed_category',
+        'usc',
+        'usc.categoryId = category.id',
+      )
+      .where('usc.userId = :userId', { userId })
+      .getMany();
+  }
 }

@@ -31,7 +31,7 @@ export class User implements IUser {
 
   @ManyToMany(type => Category)
   @JoinTable({ name: 'user_subscribed_category' })
-  subscribedCategories: Category[];
+  subscribedCategories: Promise<Category[]>;
 
   @OneToMany(
     type => AcceptedChallenge,

@@ -8,5 +8,6 @@ import { ChallengeController } from './challenge.controller';
   imports: [TypeOrmModule.forFeature([Challenge])],
   controllers: [ChallengeController],
   providers: [ChallengeService],
+  exports: [ChallengeService],
 })
 export class ChallengeModule {}
