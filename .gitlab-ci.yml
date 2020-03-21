@@ -1,21 +1,90 @@
-image: node:13
+variables:
+  IMAGE_TAG_BACKEND: $CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_SLUG
 
 stages:
   - build
-  - test
+  - deploy
 
-cache:
-  paths:
-    - node_modules/
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 build:
+  image: tmaier/docker-compose:latest
   stage: build
   script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules/
+    - docker build -t $IMAGE_TAG_BACKEND -f .docker/Dockerfile .
+    - docker push $IMAGE_TAG_BACKEND
+  tags:
+    - docker-schulz
 
-test:
-  stage: test
-  script: npm test
+.deploy:staging: &deployTemplate
+  stage: deploy
+  when: on_success
+  allow_failure: false
+  dependencies:
+    - build
+  script:
+    - sh ./.gitlab-ci/deploy-staging.sh
+  tags:
+    - staging
+
+.deploy:staging:stop: &deployStopTemplate
+  stage: deploy
+  allow_failure: true
+  when: manual
+  dependencies:
+    - build
+  script:
+    - sh ./.gitlab-ci/deploy-staging-stop.sh
+  tags:
+    - staging
+
+deploy:master:
+  <<: *deployTemplate
+  variables:
+    STAGING_DOMAIN: home-alone.schulz.codes
+    ENTRYPOINT: 'http,https'
+  when: on_success
+  environment:
+    name: master
+    url: https://$STAGING_DOMAIN
+    on_stop: deploy:master:stop
+  only:
+    - tags
+    - /^master$/
+
+deploy:master:stop:
+  <<: *deployStopTemplate
+  variables:
+    STAGING_DOMAIN: home-alone.schulz.codes
+    ENTRYPOINT: 'http,https'
+  environment:
+    name: master
+    action: stop
+  only:
+    - tags
+    - /^master$/
+
+deploy:develop:
+  <<: *deployTemplate
+  variables:
+    STAGING_DOMAIN: dev.home-alone.schulz.codes
+    ENTRYPOINT: 'http,https'
+  when: on_success
+  environment:
+    name: develop
+    url: https://$STAGING_DOMAIN
+    on_stop: deploy:develop:stop
+  only:
+    - /^develop$/
+
+deploy:develop:stop:
+  <<: *deployStopTemplate
+  variables:
+    STAGING_DOMAIN: dev.home-alone.schulz.codes
+    ENTRYPOINT: 'http,https'
+  environment:
+    name: develop
+    action: stop
+  only:
+    - /^develop$/
