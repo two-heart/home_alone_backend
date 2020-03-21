@@ -6,8 +6,8 @@
 
 ```json
 {
-  "username": "testuser@dev",
-  "password": "testpassword"
+	"username":"dev@home-alone.de",
+	"password":"password"
 }
 ```
 
@@ -15,7 +15,7 @@ _Response_
 
 ```json
 {
-  "accessToken": "such a nice base64 encode jwt"
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMmJkNjBhYS1iMDI1LTQ0NzktYWZkMS0yNDg4YmUyYjdjNTIiLCJpYXQiOjE1ODQ3ODUwMzJ9.5b0jT17YFB5K9N-C6Y6TYI_Vpz-wwV5vEKYuSDJ5CFk"
 }
 ```
 
