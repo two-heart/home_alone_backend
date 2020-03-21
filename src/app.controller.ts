@@ -17,6 +17,12 @@ export class AppController {
     return this.authService.generateToken(req.user);
   }
 
+  @Post('auth/register')
+  async register(@Request() req) {
+    console.log(req.body);
+    this.authService.register(req.body);
+  }
+
   @Get()
   getHello(): string {
     return this.appService.getHello();

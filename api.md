@@ -1,13 +1,13 @@
 #API Doc
 
-## Login
+## Login (DONE)
 
 `POST /auth/login`
 
 ```json
 {
-	"username":"dev@home-alone.de",
-	"password":"password"
+  "username": "dev@home-alone.de",
+  "password": "password"
 }
 ```
 
@@ -15,8 +15,29 @@ _Response_
 
 ```json
 {
-    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMmJkNjBhYS1iMDI1LTQ0NzktYWZkMS0yNDg4YmUyYjdjNTIiLCJpYXQiOjE1ODQ3ODUwMzJ9.5b0jT17YFB5K9N-C6Y6TYI_Vpz-wwV5vEKYuSDJ5CFk"
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMmJkNjBhYS1iMDI1LTQ0NzktYWZkMS0yNDg4YmUyYjdjNTIiLCJpYXQiOjE1ODQ3ODUwMzJ9.5b0jT17YFB5K9N-C6Y6TYI_Vpz-wwV5vEKYuSDJ5CFk"
 }
+```
+
+## Register (DONE)
+
+`POST /auth/register`
+
+```json
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "plainPassword": "test",
+  "email": "test@testuser.com"
+}
+```
+
+_Response_
+
+StatusCode _201_
+
+```json
+
 ```
 
 ## Challenge
@@ -50,5 +71,59 @@ _Response_
 
 ```
 
+
+```
+
+"name": "Test challenge",
+"description": "This is a test challenge",
+"created": "",
+"creator": {
+"email": "testuser@dev.de"
+}
+}
+
+```
+
+`PUT /api/challenge/<challenge-id>`
+
+```
+
+```
+
+```
+
+"name": "Test challenge",
+"description": "This is a test challenge",
+"created": "",
+"creator": {
+"email": "testuser@dev.de"
+}
+}
+
+```
+
+`PUT /api/challenge/<challenge-id>`
+
+```
+
+```
+
+```
+
+"name": "Test challenge",
+"description": "This is a test challenge",
+"created": "",
+"creator": {
+"email": "testuser@dev.de"
+}
+}
+
+```
+
+`PUT /api/challenge/<challenge-id>`
+
+```
+
+```
 
 ```

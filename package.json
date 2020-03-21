@@ -21,7 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm:sync": "typeorm schema:sync",
     "typeorm:drop": "typeorm schema:drop",
-    "fixtures": "ts-node ./node_modules/typeorm-fixtures-cli/dist/cli.js ./**/*.fixture.yml --config ormconfig.js --sync --debug"
+    "fixtures": "ts-node ./node_modules/typeorm-fixtures-cli/dist/cli.js ./src/**/*.fixture.yml --config ormconfig.js --sync --debug"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
