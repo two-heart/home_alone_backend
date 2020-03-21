@@ -2,6 +2,7 @@ entity: Challenge
 items:
   challenge{0..10}:
     name: '{{name.title}}'
+    teaser: '{{lorem.sentence}}'
     description: '{{lorem.paragraphs}}'
     imageUrl: '{{image.cats}}'
     category: '@category*'

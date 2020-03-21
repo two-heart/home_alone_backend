@@ -13,6 +13,10 @@ export class Challenge {
   name: string;
 
   @ApiProperty()
+  @Column({ type: 'varchar', length: 300 })
+  teaser: string;
+
+  @ApiProperty()
   @Column({ type: 'text' })
   description: string;
 
