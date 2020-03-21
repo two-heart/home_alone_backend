@@ -1,6 +1,10 @@
 entity: User
 items:
   devUser:
-    displayedName: 'Developer'
+    displayedName: 'Dev'
     email: 'dev@home-alone.de'
+    password: '$2b$10$r73kI5HnD0aJPAK9Ut/9..lloBkcTL4h20b2GlK.GlDehIGRlmvq.' # 12345678
+  user{0..10}:
+    displayedName: '{{name.firstName}}'
+    email: '{{internet.email}}'
     password: '$2b$10$dKXSf0/.SIl9WHLrLlJu4ubCDxICcPVNIGJPhyI36c8KQ4ydNxbx.'

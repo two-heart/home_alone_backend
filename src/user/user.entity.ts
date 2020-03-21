@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Category } from '../category/category.entity';
+import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
+
 export interface IUser {
   id: string;
   email: string;
@@ -18,4 +21,14 @@ export class User implements IUser {
 
   @Column({ type: 'varchar', length: 300 })
   password: string;
+
+  @ManyToMany(type => Category)
+  @JoinTable()
+  subscribedCategories: Category[];
+
+  @OneToMany(
+    type => AcceptedChallenge,
+    acceptedChallenge => acceptedChallenge.user,
+  )
+  public acceptedChallenges: Promise<AcceptedChallenge[]>;
 }

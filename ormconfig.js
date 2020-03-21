@@ -15,9 +15,7 @@ const prefix = path => {
 
   return `${prefix}/${path}`;
 };
-console.log('config');
 
-console.log(prefix('entity/**/*.*'));
 module.exports = {
   name: 'default',
   type: 'postgres',
@@ -27,7 +25,7 @@ module.exports = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   synchronize: false,
-  logging: false,
+  logging: true,
   entities: [prefix('**/*.entity.*')],
   migrations: [prefix('migration/**/*.*')],
   subscribers: [prefix('subscriber/**/*.*')],

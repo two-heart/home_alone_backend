@@ -1,0 +1,12 @@
+entity: 'AcceptedChallenge'
+items:
+  acceptedChallenge{0..10}:
+    user: '@user($current)'
+    challenge: '@challenge*'
+    finished: '{{random.boolean}}'
+    finishedAt: '{{date.past}}'
+  acceptedChallengeDev{0..4}:
+    user: '@devUser'
+    challenge: '@challenge($current)'
+    finished: '{{random.boolean}}'
+    finsihedAt: '{{date.past}}'
