@@ -76,7 +76,7 @@ deploy:develop:
     url: https://$STAGING_DOMAIN
     on_stop: deploy:develop:stop
   only:
-    - /^feature/ci$/
+    - /^develop$/
 
 deploy:develop:stop:
   <<: *deployStopTemplate
@@ -87,4 +87,4 @@ deploy:develop:stop:
     name: develop
     action: stop
   only:
-    - /^feature/ci$/
+    - /^develop$/
