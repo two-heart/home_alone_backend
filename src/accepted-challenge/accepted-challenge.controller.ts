@@ -4,7 +4,7 @@ import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { AcceptedChallenge } from './accepted-challenge.entity';
 import { AcceptedChallengeService } from './accepted-challenge.service';
 
-@Controller('user/acceptedChallenge')
+@Controller('user/challenge/accepted')
 export class AcceptedChallengeController {
   constructor(private acceptedChallengeService: AcceptedChallengeService) {}
 
