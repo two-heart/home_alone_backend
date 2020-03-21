@@ -4,12 +4,6 @@ set -e
 
 DIRECTORY=/srv/gitlab-ci/$STAGING_DOMAIN
 
-echo "Install envsubst"
-apk add --update gettext
-
-echo "Docker login"
-docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-
 echo "Deleting old directory"
 rm -rf $DIRECTORY
 
