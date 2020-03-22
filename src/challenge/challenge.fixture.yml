@@ -4,5 +4,5 @@ items:
     name: '{{name.title}}'
     teaser: '{{lorem.sentence}}'
     description: '{{lorem.paragraphs}}'
-    imageUrl: '{{image.cats}}'
+    imageUrl: 'https://lh6.googleusercontent.com/IqK36yQSGSnFvY-7vxPRuCSwtdq7X7QaUoBqS6ho_MdxRS_R5hT3mPHP9SELxW6tuIl7b6CkhxnBXy35yauL=w2560-h1244'
     category: '@category*'

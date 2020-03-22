@@ -13,4 +13,30 @@ export class AcceptedChallengeService {
   findByUserId(userId: string): Promise<AcceptedChallenge[]> {
     return this.repository.find({ where: { userId } });
   }
+
+  async createAcceptedChallenge(
+    userId: string,
+    challengeId: string,
+  ): Promise<AcceptedChallenge> {
+    const savedAcceptedChallenge = await this.repository.save({
+      userId,
+      challengeId,
+      finished: false,
+    });
+    return this.repository.findOne({ where: savedAcceptedChallenge });
+  }
+
+  async finishAcceptedChallenge(
+    userId: string,
+    challengeId: string,
+  ): Promise<AcceptedChallenge> {
+    const savedAcceptedChallenge = await this.repository.update(
+      { userId, challengeId, finished: false },
+      {
+        finished: true,
+        finishedAt: new Date(),
+      },
+    );
+    return this.repository.findOne({ where: savedAcceptedChallenge });
+  }
 }
