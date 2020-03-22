@@ -1,6 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Category } from '../category/category.entity';
+import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'challenge' })
 export class Challenge {
@@ -31,4 +39,11 @@ export class Challenge {
     { eager: true },
   )
   category: Category;
+
+  @Exclude()
+  @OneToMany(
+    type => AcceptedChallenge,
+    accepted => accepted.challenge,
+  )
+  acceptedChallenges: AcceptedChallenge[];
 }

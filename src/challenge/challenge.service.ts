@@ -29,7 +29,14 @@ export class ChallengeService {
         'usc',
         'usc.categoryId = category.id',
       )
-      .where('usc.userId = :userId', { userId })
+      .leftJoinAndSelect(
+        'challenge.acceptedChallenges',
+        'acceptedChallenge',
+        'acceptedChallenge.userId = usc.userId',
+      )
+      .where('usc.userId = :userId', {
+        userId,
+      })
       .getMany();
   }
 }

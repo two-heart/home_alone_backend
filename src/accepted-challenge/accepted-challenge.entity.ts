@@ -40,7 +40,7 @@ export class AcceptedChallenge {
   )
   user: User;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Challenge })
   @ManyToOne(type => Challenge, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',

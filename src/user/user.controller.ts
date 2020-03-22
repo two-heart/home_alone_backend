@@ -16,6 +16,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiProperty,
+  ApiPropertyOptional,
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -23,6 +24,8 @@ import { ChallengeService } from '../challenge/challenge.service';
 import { Challenge } from '../challenge/challenge.entity';
 import { Category } from '../category/category.entity';
 import { IsUUID } from 'class-validator';
+import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
+import { classToClass, classToPlain } from 'class-transformer';
 
 export class SubscribeCategoryDto {
   @ApiProperty()
@@ -33,6 +36,30 @@ export class SubscribeCategoryDto {
 export class MultiSubscribeCategoryDto {
   @ApiProperty()
   categoryIds: string[];
+}
+
+export type IUserChallenge = Partial<Challenge> & Partial<AcceptedChallenge>;
+
+export class UserChallenge implements IUserChallenge {
+  @ApiProperty()
+  id: string;
+  @ApiProperty()
+  imageUrl: string;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  description: string;
+  @ApiProperty()
+  teaser: string;
+  @ApiProperty()
+  category: Category;
+
+  @ApiPropertyOptional()
+  acceptedAt: Date;
+  @ApiPropertyOptional()
+  finished: boolean;
+  @ApiPropertyOptional()
+  finishedAt: Date;
 }
 
 @ApiTags('user')
@@ -55,17 +82,25 @@ export class UserController {
   }
 
   @ApiOkResponse({
-    type: Challenge,
+    type: UserChallenge,
     isArray: true,
     description: 'All challenges in the subscribed categories of the user',
   })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('challenge')
-  async findByCategoriesOfCurrentUser(@Request() request) {
-    return this.challengeService.findChallengesBySubscribedCategoriesOfUser(
+  async findByCategoriesOfCurrentUser(
+    @Request() request,
+  ): Promise<IUserChallenge[]> {
+    const challenges = await this.challengeService.findChallengesBySubscribedCategoriesOfUser(
       request.user.userId,
     );
+    return challenges.map(challenge => ({
+      ...classToClass(challenge),
+      ...(challenge.acceptedChallenges?.length === 1
+        ? classToClass(challenge.acceptedChallenges[0])
+        : {}),
+    }));
   }
 
   @ApiOkResponse({
