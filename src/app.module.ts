@@ -7,6 +7,8 @@ import { UserModule } from './user/user.module';
 import { ChallengeModule } from './challenge/challenge.module';
 import { CategoryModule } from './category/category.module';
 import { AcceptedChallengeModule } from './accepted-challenge/accepted-challenge.module';
+import { SyncService } from './sync/sync.service';
+import { SyncModule } from './sync/sync.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { AcceptedChallengeModule } from './accepted-challenge/accepted-challenge
     UserModule,
     CategoryModule,
     AcceptedChallengeModule,
+    SyncModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SyncService],
 })
 export class AppModule {}

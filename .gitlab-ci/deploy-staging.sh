@@ -35,5 +35,5 @@ docker-compose --project-name $STAGING_DOMAIN up -d --remove-orphans
 echo "reset db"
 docker-compose --project-name $STAGING_DOMAIN run backend npm run typeorm:drop
 docker-compose --project-name $STAGING_DOMAIN run backend npm run typeorm:sync
-docker-compose --project-name $STAGING_DOMAIN run backend npm run fixtures
+docker-compose --project-name $STAGING_DOMAIN run backend curl http://localhost:3000/sync\?key\=onlygitlabmaydeploy
 
