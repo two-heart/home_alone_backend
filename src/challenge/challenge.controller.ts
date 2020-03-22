@@ -19,12 +19,14 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { isUUID } from '@nestjs/common/utils/is-uuid';
 import { AcceptedChallengeService } from '../accepted-challenge/accepted-challenge.service';
 import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@ApiTags('challenge')
 @Controller('challenge')
 export class ChallengeController {
   constructor(
@@ -64,8 +66,8 @@ export class ChallengeController {
   }
 
   @ApiCreatedResponse({ type: AcceptedChallenge })
-  @HttpCode(HttpStatus.CREATED)
   @ApiBearerAuth()
+  @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard)
   @Post(':id/accept')
   async acceptChallenge(@Request() request, @Param('id') challengeId: string) {
@@ -76,8 +78,8 @@ export class ChallengeController {
   }
 
   @ApiCreatedResponse({ type: AcceptedChallenge })
-  @HttpCode(HttpStatus.CREATED)
   @ApiBearerAuth()
+  @HttpCode(HttpStatus.CREATED)
   @UseGuards(JwtAuthGuard)
   @Put(':id/finish')
   async finishChallenge(@Request() request, @Param('id') challengeId: string) {

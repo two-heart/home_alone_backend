@@ -16,6 +16,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiProperty,
+  ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChallengeService } from '../challenge/challenge.service';
@@ -34,16 +35,23 @@ export class MultiSubscribeCategoryDto {
   categoryIds: string[];
 }
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(
     private userService: UserService,
     private challengeService: ChallengeService,
   ) {}
+
+  @ApiOkResponse({
+    type: User,
+    description: 'current user',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(): Promise<User[]> {
-    const users = await this.userService.findAll();
-    return users;
+  async findCurrentUser(@Request() request): Promise<User> {
+    return this.userService.findByUserId(request.user.userId);
   }
 
   @ApiOkResponse({

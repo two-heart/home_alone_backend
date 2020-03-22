@@ -7,6 +7,7 @@ import {
   ApiCreatedResponse,
   ApiResponseProperty,
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 
 export class RegisterUserDto {
@@ -30,6 +31,7 @@ export class TokenResponse {
   accessToken: '';
 }
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
