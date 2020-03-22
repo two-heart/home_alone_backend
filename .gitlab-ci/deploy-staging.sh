@@ -32,7 +32,7 @@ docker-compose --project-name $STAGING_DOMAIN pull --parallel
 echo "Starting containers"
 docker-compose --project-name $STAGING_DOMAIN up -d --remove-orphans
 
-sleep(20)
+sleep 20
 
 echo "reset db"
 docker-compose --project-name $STAGING_DOMAIN run backend npm run typeorm:drop
