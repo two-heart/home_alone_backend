@@ -8,5 +8,6 @@ import { AcceptedChallenge } from './accepted-challenge.entity';
   imports: [TypeOrmModule.forFeature([AcceptedChallenge])],
   controllers: [AcceptedChallengeController],
   providers: [AcceptedChallengeService],
+  exports: [AcceptedChallengeService],
 })
 export class AcceptedChallengeModule {}
