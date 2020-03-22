@@ -1,7 +1,22 @@
 import { User } from './user.entity';
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiProperty } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiProperty,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChallengeService } from '../challenge/challenge.service';
 import { Challenge } from '../challenge/challenge.entity';
@@ -12,6 +27,11 @@ export class SubscribeCategoryDto {
   @ApiProperty()
   @IsUUID()
   id: string;
+}
+
+export class MultiSubscribeCategoryDto {
+  @ApiProperty()
+  categoryIds: string[];
 }
 
 @Controller('user')
@@ -53,6 +73,24 @@ export class UserController {
     return await user.subscribedCategories;
   }
 
+  @ApiCreatedResponse({
+    description:
+      'Set subscripted categories. Overrides existing subscriptions.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.CREATED)
+  @Post('categories')
+  async setSubscriptions(
+    @Request() request,
+    @Body() multiSubscribeCategoryDto: MultiSubscribeCategoryDto,
+  ) {
+    await this.userService.setSubscriptions(
+      request.user.userId,
+      multiSubscribeCategoryDto.categoryIds,
+    );
+  }
+
   @ApiCreatedResponse({ description: 'Subscribe to the given category' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -63,6 +101,20 @@ export class UserController {
     @Body() subscribeCategoryDto: SubscribeCategoryDto,
   ) {
     await this.userService.subscribeToCategoryId(
+      request.user.userId,
+      subscribeCategoryDto.id,
+    );
+  }
+
+  @ApiOkResponse({ description: 'Unsubscribe to the given category' })
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Delete('category')
+  async unsubscribeCategory(
+    @Request() request,
+    @Body() subscribeCategoryDto: SubscribeCategoryDto,
+  ) {
+    await this.userService.unsubscribeToCategoryId(
       request.user.userId,
       subscribeCategoryDto.id,
     );

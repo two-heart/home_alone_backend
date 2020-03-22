@@ -20,11 +20,28 @@ export class UserService {
     return this.userRepository.findOne(userId);
   }
 
+  async setSubscriptions(userId: string, categoryIds: string[]) {
+    const user = await this.findByUserId(userId);
+    const oldCategories = await user.subscribedCategories;
+    await this.userRepository
+      .createQueryBuilder()
+      .relation(User, 'subscribedCategories')
+      .of(userId)
+      .addAndRemove(categoryIds, oldCategories);
+  }
+
   async subscribeToCategoryId(userId: string, categoryId: string) {
     await this.userRepository
       .createQueryBuilder()
       .relation(User, 'subscribedCategories')
       .of(userId)
       .add(categoryId);
+  }
+  async unsubscribeToCategoryId(userId: string, categoryId: string) {
+    await this.userRepository
+      .createQueryBuilder()
+      .relation(User, 'subscribedCategories')
+      .of(userId)
+      .remove(categoryId);
   }
 }
