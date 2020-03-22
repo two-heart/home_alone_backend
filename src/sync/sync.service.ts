@@ -14,7 +14,7 @@ interface ChallengeRow {
 
 @Injectable()
 export class SyncService {
-  constructor(private connection: Connection) {}
+  constructor(private connection: Connection) { }
   private readonly spreadsheet = new GoogleSpreadsheet(
     '1QqiG0bguy3G-p4u4ArlBgtYQ4cuU8fdHDSf9aoOjUWY',
   );
@@ -48,7 +48,9 @@ export class SyncService {
             row =>
               ({
                 name: row.title,
-                teaser: '',
+                teaser: (row.description.length > 47) ? 
+                  row.description.substring(0, 47) + "...":
+                  row.description,
                 description: row.description,
                 imageUrl: row.imageUrl,
                 category: category,
