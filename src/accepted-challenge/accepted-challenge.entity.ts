@@ -11,18 +11,16 @@ import { User } from '../user/user.entity';
 import { Challenge } from '../challenge/challenge.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { Category } from '../category/category.entity';
 
 @Unique(['userId', 'challengeId'])
 @Entity({ name: 'accepted_challenge' })
 export class AcceptedChallenge {
-  @ApiProperty()
   @Index()
   @Column({ default: false })
   finished: boolean;
-  @ApiPropertyOptional()
   @Column({ default: undefined, nullable: true })
   finishedAt?: Date;
-  @ApiProperty()
   @CreateDateColumn()
   acceptedAt?: Date;
 
@@ -40,11 +38,34 @@ export class AcceptedChallenge {
   )
   user: User;
 
-  @ApiProperty({ type: () => Challenge })
   @ManyToOne(type => Challenge, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
     eager: true,
   })
   challenge: Challenge;
+}
+
+export type IUserChallenge = Partial<Challenge> & Partial<AcceptedChallenge>;
+
+export class UserChallenge implements IUserChallenge {
+  @ApiProperty()
+  id: string;
+  @ApiProperty()
+  imageUrl: string;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  description: string;
+  @ApiProperty()
+  teaser: string;
+  @ApiProperty({ type: () => Category })
+  category: Category;
+
+  @ApiPropertyOptional()
+  acceptedAt: Date;
+  @ApiPropertyOptional()
+  finished: boolean;
+  @ApiPropertyOptional()
+  finishedAt: Date;
 }

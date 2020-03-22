@@ -16,16 +16,17 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiProperty,
-  ApiPropertyOptional,
   ApiTags,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ChallengeService } from '../challenge/challenge.service';
-import { Challenge } from '../challenge/challenge.entity';
 import { Category } from '../category/category.entity';
 import { IsUUID } from 'class-validator';
-import { AcceptedChallenge } from '../accepted-challenge/accepted-challenge.entity';
-import { classToClass, classToPlain } from 'class-transformer';
+import {
+  IUserChallenge,
+  UserChallenge,
+} from '../accepted-challenge/accepted-challenge.entity';
+import { classToClass } from 'class-transformer';
 
 export class SubscribeCategoryDto {
   @ApiProperty()
@@ -36,30 +37,6 @@ export class SubscribeCategoryDto {
 export class MultiSubscribeCategoryDto {
   @ApiProperty()
   categoryIds: string[];
-}
-
-export type IUserChallenge = Partial<Challenge> & Partial<AcceptedChallenge>;
-
-export class UserChallenge implements IUserChallenge {
-  @ApiProperty()
-  id: string;
-  @ApiProperty()
-  imageUrl: string;
-  @ApiProperty()
-  name: string;
-  @ApiProperty()
-  description: string;
-  @ApiProperty()
-  teaser: string;
-  @ApiProperty()
-  category: Category;
-
-  @ApiPropertyOptional()
-  acceptedAt: Date;
-  @ApiPropertyOptional()
-  finished: boolean;
-  @ApiPropertyOptional()
-  finishedAt: Date;
 }
 
 @ApiTags('user')
